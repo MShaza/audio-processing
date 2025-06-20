@@ -1,0 +1,44 @@
+# Build artifacts
+/build/
+/build*/ 
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Compiled Python modules
+*.so
+*.pyd
+*.dll
+
+# pybind11-generated build folders
+bindings/*.so
+bindings/*.pyd
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+pip-wheel-metadata/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# Logs and IDE files
+*.log
+*.swp
+*.swo
+*.DS_Store
+*.idea/
+.vscode/
+
+# Test & coverage
+htmlcov/
+.coverage
+coverage.xml
+pytest_cache/
