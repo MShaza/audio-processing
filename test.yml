@@ -1,7 +1,7 @@
 trigger:
 - main
 pool:
- vmImage: 'ubuntu-latest'
+ vmImage: 'window-latest'
 
 variables:
   build_dir: 'build'
