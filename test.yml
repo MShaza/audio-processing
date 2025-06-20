@@ -6,7 +6,7 @@ pool:
 variables:
   build_dir: 'build'
 steps:
-- tasks: UsePythonVersion@0
+- task: UsePythonVersion@0
   inputs:
     VersionSpec: '3.x'
 - script: |
