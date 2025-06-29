@@ -10,6 +10,7 @@ Makefile
 *.so
 *.pyd
 *.dll
+*.wav
 
 # pybind11-generated build folders
 bindings/*.so
@@ -42,3 +43,4 @@ htmlcov/
 .coverage
 coverage.xml
 pytest_cache/
+Python/example.wav
