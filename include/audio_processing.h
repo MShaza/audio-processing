@@ -5,7 +5,9 @@
 #include <vector> 
 
 
-std::vector<double> lowPassFilter(const std::vector<double> &input, int windowsSize);
+std::vector<double> lowPassFilter(const std::vector<double> &input, int windowsSize, bool lpFilter);
+std::vector<double> highPassFilter(const std::vector<double> &input, const std::vector<double> &averageValue);
+
 
 
 #endif

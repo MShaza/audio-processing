@@ -1,23 +1,34 @@
 trigger:
 - main
+
 pool:
- vmImage: 'ubuntu-latest'
+  vmImage: 'ubuntu-latest'
 
 variables:
   build_dir: 'build'
+
 steps:
 - task: UsePythonVersion@0
   inputs:
-    VersionSpec: '3.x'
+    versionSpec: '3.10'   # Use 3.10 specifically, avoids cross-version `.so` issues
+
 - script: |
     sudo apt-get update
     sudo apt-get install -y cmake g++ python3-dev
+  displayName: "Install system dependencies"
+
 - script: |
     python -m pip install --upgrade pip
-    pip install pybind11 matplotlib
+    pip install pybind11 matplotlib scipy numpy pytest
+  displayName: "Install Python dependencies"
+
 - script: |
-    cmake -B $(build_dir) -S .
+    cmake -B $(build_dir) -DPython_EXECUTABLE=$(which python) -S .
     cmake --build $(build_dir)
+  displayName: "Build C++ audio_processing module"
+
 - script: |
-    pythonw python/test_audio_processing.py
+    pytest Python/tests
+  displayName: "Run Python unit tests"
+
 
