@@ -10,25 +10,24 @@ variables:
 steps:
 - task: UsePythonVersion@0
   inputs:
-    versionSpec: '3.10'   # Use 3.10 specifically, avoids cross-version `.so` issues
+    versionSpec: '3.10'
+    addToPath: true
 
 - script: |
     sudo apt-get update
-    sudo apt-get install -y cmake g++ python3-dev
-  displayName: "Install system dependencies"
+    sudo apt-get install -y cmake g++ python3.10-dev
+  displayName: 'Install system dependencies'
 
 - script: |
     python -m pip install --upgrade pip
-    pip install pybind11 matplotlib scipy numpy pytest
-  displayName: "Install Python dependencies"
+    pip install pybind11 matplotlib scipy numpy
+  displayName: 'Install Python dependencies'
 
 - script: |
-    cmake -B $(build_dir) -DPython_EXECUTABLE=$(which python) -S .
+    cmake -B $(build_dir) -S . -DPython_EXECUTABLE=$(which python3.10)
     cmake --build $(build_dir)
-  displayName: "Build C++ audio_processing module"
+  displayName: 'Configure and build with CMake'
 
 - script: |
-    pytest Python/tests
-  displayName: "Run Python unit tests"
-
-
+    python python/test_audio_processing.py
+  displayName: 'Run unit tests'
