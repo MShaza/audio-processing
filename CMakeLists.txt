@@ -6,11 +6,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include_directories(include)
 
-# Use manually provided Python
-set(Python_EXECUTABLE "/Users/muhammadshazab/anaconda3/bin/python3.10")  # <- hardcoded here
+# Don't hardcode Python executable path — use -DPython_EXECUTABLE in CLI or CI
 find_package(Python REQUIRED COMPONENTS Interpreter Development)
 
-# Use pybind11 from Python 3.10
+# Dynamically fetch pybind11 cmake path from active Python
 execute_process(
   COMMAND ${Python_EXECUTABLE} -m pybind11 --cmakedir
   OUTPUT_VARIABLE pybind11_DIR
@@ -18,8 +17,10 @@ execute_process(
 )
 find_package(pybind11 REQUIRED CONFIG PATHS ${pybind11_DIR})
 
+# Create the pybind11 module
 pybind11_add_module(audio_processing
     src/audio_processing.cpp
     src/binding.cpp
 )
+
 target_include_directories(audio_processing PRIVATE include)

@@ -16,18 +16,15 @@ steps:
 - script: |
     sudo apt-get update
     sudo apt-get install -y cmake g++ python3.10-dev
-  displayName: 'Install system dependencies'
 
 - script: |
     python -m pip install --upgrade pip
-    pip install pybind11 matplotlib scipy numpy
-  displayName: 'Install Python dependencies'
+    pip install pybind11 matplotlib numpy scipy
 
 - script: |
-    cmake -B $(build_dir) -S . -DPython_EXECUTABLE=$(which python3.10)
+    cmake -B $(build_dir) -S . -DPython_EXECUTABLE=$(which python3)
     cmake --build $(build_dir)
-  displayName: 'Configure and build with CMake'
 
 - script: |
-    python python/test_audio_processing.py
-  displayName: 'Run unit tests'
+    python python/test
+  displayName: 'Run Unit Tests'
