@@ -27,5 +27,5 @@ steps:
     cmake --build $(build_dir)
 
 - script: |
-    python python/test
+    python Python/test.py
   displayName: 'Run Unit Tests'
