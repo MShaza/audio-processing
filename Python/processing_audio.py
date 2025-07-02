@@ -10,9 +10,9 @@ sys.path.append(build_path)
 
 import audio_processing
 
-def performProcessing(data, window_size):
+def performProcessing(data, window_size, filter_type):
     print("[Debug - performProcessing] Enter function")
     ##lpFilter = False
-    filtered = audio_processing.low_pass_filter(data.tolist(), window_size, False)
+    filtered = audio_processing.low_pass_filter(data.tolist(), window_size, filter_type)
     print("[Debug - performProcessing] Enter function")
     return filtered

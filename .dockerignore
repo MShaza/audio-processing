@@ -1,0 +1,6 @@
+build/
+CMakeCache.txt
+CMakeFiles/
+*.so
+*.pyc
+__pycache__/

@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.io import wavfile
+import argparse
 from processing_audio import performProcessing
 
 def plot_data(originalData, filteredData):
@@ -17,6 +18,12 @@ def plot_data(originalData, filteredData):
 
 if __name__ == '__main__':
     print("[Debug - main] Reading file")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--window", type=int, required= True)
+    parser.add_argument("--filter", type=str, choices=["lpf", "hpf"], required= True)
+    print("[Debug - main] Parsing arguments")
+    args = parser.parse_args()
+    lpFilter = args.filter == "lpf"
     rate, data = wavfile.read("example.wav")
     print("[Debug - main] Check if mono or stereo")
     if len(data.shape) == 2:
@@ -24,9 +31,9 @@ if __name__ == '__main__':
     print("[Debug - main] Check data type")
     if(data.dtype != np.float32 and data.dtype != np.float64):
         data = data/npiinfo(data.dtype).max
-    window_size = 3
+    #window_size = 3
     print("[Debug - main] Calling function low_pass_filter")
-    filtered = performProcessing(data, window_size)
+    filtered = performProcessing(data, args.window, lpFilter )
     print("[Debug - main] Filtered data recieved")
     print("[Debug - main] Plotting")
     plot_data(data, filtered)
